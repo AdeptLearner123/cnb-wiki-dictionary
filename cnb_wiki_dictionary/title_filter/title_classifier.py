@@ -1,4 +1,4 @@
-from cnb_wiki_dictionary.utils.utils import get_title_tokens
+from cnb_wiki_dictionary.utils.title import get_title_tokens
 
 
 def title_is_short_entity(title):

@@ -15,6 +15,7 @@ DUMP_PAGE_VIEWS_DIR = "data/dump_page_views/dump"
 MISSING_SUMMARIES = "data/summaries_download/missing_summaries.txt"
 MISSING_PAGE_VIEWS = "data/page_views_download/missing_page_views.txt"
 
+# Processing stages
 DUMP_PAGE_VIEWS_FILTERED = "data/output/dump_page_view_filtered.txt"
 TITLE_FILTERED = "data/output/title_filtered.txt"
 CLUE_TOKEN_FILTERED = "data/output/clue_token_filtered.json"

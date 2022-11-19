@@ -1,7 +1,16 @@
 from config import TITLE_FILTERED, COMPOUND_CLUE_FILTERED, CARDWORDS
-from cnb_wiki_dictionary.utils.utils import get_title_tokens
+from cnb_wiki_dictionary.utils.title import get_title_tokens
 
 import json
+
+
+def extract_compound_tokens(title):
+    tokens = get_title_tokens(title)
+
+    if len(tokens) != 2:
+        return None
+
+    return tokens
 
 
 def main():
@@ -14,9 +23,9 @@ def main():
     compound_tokens = dict()
 
     for title in titles:
-        tokens = get_title_tokens(title)
+        tokens = extract_compound_tokens(title)
 
-        if len(tokens) != 2:
+        if tokens is None:
             continue
 
         if any([token.upper() in cardwords for token in tokens]):
