@@ -5,7 +5,8 @@ from config import (
     CLUE_TOKEN_DICT,
 )
 from cnb_wiki_dictionary.download.caches import PageViewsCache, SummariesCache
-from cnb_wiki_dictionary.utils.utils import title_to_text, views_to_knownness
+from cnb_wiki_dictionary.utils.title import title_to_text
+from cnb_wiki_dictionary.utils.knownness import views_to_knownness
 
 import json
 

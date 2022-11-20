@@ -14,10 +14,13 @@ class CardwordTokenMerger:
     def merge(self, tokens):
         # Assume that merge tokens are split by spaces only
         # Assume that tokens list only matches merge tokens once
+        print("Merging", self._merge_tokens, tokens)
         for merge_tokens in self._merge_tokens:
             for i in range(len(tokens) - len(merge_tokens) + 1):
-                upper_tokens = [ token.upper() for token in tokens ]
+                span_tokens = tokens[i:i + len(merge_tokens)]
+                upper_tokens = [ token.upper() for token in span_tokens ]
+                print(upper_tokens, merge_tokens)
                 if upper_tokens == merge_tokens:
-                    tokens = tokens[:i] + [" ".join(tokens[i:i + len(merge_tokens)])] + tokens[i + len(merge_tokens):]
+                    tokens = tokens[:i] + [" ".join(tokens[i:i + len(span_tokens)])] + tokens[i + len(merge_tokens):]
                     return tokens
         return tokens

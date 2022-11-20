@@ -25,10 +25,7 @@ def main():
     for title in titles:
         tokens = extract_compound_tokens(title)
 
-        if tokens is None:
-            continue
-
-        if any([token.upper() in cardwords for token in tokens]):
+        if tokens is not None and any([token.upper() in cardwords for token in tokens]):
             compound_tokens[title] = tokens
 
     with open(COMPOUND_CLUE_FILTERED, "w+") as file:
