@@ -5,6 +5,8 @@ from cnb_wiki_dictionary.utils.title import get_title_tokens, tokenize, extract_
 
 nlp = spacy.load("en_core_web_sm")
 
+TRIM_SUFFIX = ["INC."]
+
 
 def is_person(summary):
     doc = nlp(summary)
@@ -41,6 +43,9 @@ def extract_unique_tokens(tokens):
 def extract_clue_tokens(title, summary):
     tokens = get_title_tokens(title)
 
+    if tokens[-1] in TRIM_SUFFIX:
+        tokens = tokens[:-1]
+
     if len(tokens) == 1:
         return tokens
 
@@ -49,5 +54,5 @@ def extract_clue_tokens(title, summary):
     
     if is_split_title(title):
         return get_split_title_tokens(title)
-
+    
     return extract_unique_tokens(tokens)

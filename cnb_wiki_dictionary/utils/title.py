@@ -3,9 +3,6 @@ from .cardword_token_merger import CardwordTokenMerger
 IGNORE_TOKENS = ["the", "of"]
 SPLIT_CHARS = ["_", "-", "\u2013", ":"]
 
-MIN_VIEWS = 1e5
-MAX_VIEWS = 1e7
-
 cardwords_merger = CardwordTokenMerger()
 
 
