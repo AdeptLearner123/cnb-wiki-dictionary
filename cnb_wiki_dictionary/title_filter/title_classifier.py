@@ -9,5 +9,8 @@ def title_is_short_entity(title):
     ):
         return False
 
+    if title == "Main_Page":
+        return False
+
     tokens = get_title_tokens(title)
     return len(tokens) <= 2

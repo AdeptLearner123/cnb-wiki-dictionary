@@ -14,4 +14,9 @@ def main():
     text = parse_args()
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
-    displacy.serve(doc, style="ent", port=5001)
+
+    for token in doc:
+        print(token, token.tag_, token.pos_)
+
+    #displacy.serve(doc, style="ent", port=5001)
+    displacy.serve(doc, style="dep", port=5001)

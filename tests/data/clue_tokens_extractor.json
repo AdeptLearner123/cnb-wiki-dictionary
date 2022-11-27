@@ -7,5 +7,8 @@
     "Magic:_The_Gathering": ["MAGIC"],
     "Loch_Ness": ["LOCH NESS"],
     "The_New_Yorker": ["YORKER"],
-    "Apple_Inc.": ["APPLE"]
+    "Apple_Inc.": ["APPLE"],
+    "Ménière's_disease": ["MÉNIÈRE'S", "MD"],
+    "The": [],
+    "Divorce_demography": []
 }
