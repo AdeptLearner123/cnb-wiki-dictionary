@@ -14,7 +14,7 @@ GET_FILE_NAME = (
     lambda timestamp: f"pageviews-{timestamp.year}{timestamp.month:02d}{timestamp.day:02d}-{timestamp.hour:02d}0000"
 )
 GET_ZIPPED_FILE_NAME = (
-    lambda year, month, day, hour: f"{GET_FILE_NAME(year, month, day, hour)}.gz"
+    lambda timestamp: f"{GET_FILE_NAME(timestamp)}.gz"
 )
 
 DOWNLOAD_BATCH_SIZE = 10
