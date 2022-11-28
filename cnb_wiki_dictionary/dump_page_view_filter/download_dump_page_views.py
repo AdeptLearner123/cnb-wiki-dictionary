@@ -60,7 +60,6 @@ def download_page_views(timestamps):
 
     print("\n".join([ timestamp.strftime("%m/%d/%Y, %H:%M:%S") for timestamp in undownloaded_timestamps ]))
 
-    return
     for timestamp in tqdm(undownloaded_timestamps):
         url = GET_URL(*timestamp)
         command(["wget", url], DUMP_PAGE_VIEWS_DIR)
@@ -95,7 +94,6 @@ def main():
 
     timestamps = get_timestamps_to_process()
     download_page_views(timestamps)
-    return
     page_views = Counter()
 
     for timestamp in tqdm(timestamps):
