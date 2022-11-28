@@ -5,13 +5,13 @@ from tqdm import tqdm
 from config import DUMP_PAGE_VIEWS, DUMP_PAGE_VIEWS_DIR
 from collections import Counter
 from calendar import monthrange
-
+from datetime import datetime, timedelta
 
 GET_URL = (
     lambda year, month, day, hour: f"https://dumps.wikimedia.org/other/pageviews/{year}/{year}-{month:02d}/{GET_FILE_NAME(year, month, day, hour)}.gz"
 )
 GET_FILE_NAME = (
-    lambda year, month, day, hour: f"pageviews-{year}{month:02d}{day:02d}-{hour:02d}0000"
+    lambda timestamp: f"pageviews-{timestamp.year}{timestamp.month:02d}{timestamp.day:02d}-{timestamp.hour:02d}0000"
 )
 GET_ZIPPED_FILE_NAME = (
     lambda year, month, day, hour: f"{GET_FILE_NAME(year, month, day, hour)}.gz"
@@ -19,6 +19,8 @@ GET_ZIPPED_FILE_NAME = (
 
 DOWNLOAD_BATCH_SIZE = 10
 
+START_DATE = datetime(2021, 11, 1)
+END_DATE = datetime(2022, 11, 1)
 YEAR = 2021
 MONTHS = 12
 DAY_STEP = 4
@@ -29,17 +31,19 @@ HOUR_STEP = 4
 def get_timestamps_to_process():
     timestamps = []
 
-    for m in range(1, MONTHS + 1):
-        days_in_month = monthrange(YEAR, m)[1]
-        for d in range(1, days_in_month + 1, DAY_STEP):
-            for h in range(0, HOURS_PER_DAY, HOUR_STEP):
-                timestamps.append((YEAR, m, d, h))
+    curr_date = START_DATE
+
+    while curr_date < END_DATE:
+        for h in range(0, HOURS_PER_DAY, HOUR_STEP):
+            timestamps.append(datetime(curr_date.year, curr_date.month, curr_date.day, h))
+        
+        curr_date += timedelta(days=DAY_STEP)
 
     return timestamps
 
 
 def timestamp_needs_download(timestamp):
-    file_name = GET_FILE_NAME(*timestamp)
+    file_name = GET_FILE_NAME(timestamp)
     return not os.path.isfile(os.path.join(DUMP_PAGE_VIEWS_DIR, file_name))
 
 
@@ -51,14 +55,17 @@ def download_page_views(timestamps):
         "Total:",
         len(timestamps),
         "Downloading:",
-        len(undownloaded_timestamps),
+        len(undownloaded_timestamps)
     )
 
+    print("\n".join(undownloaded_timestamps))
+
+    return
     for timestamp in tqdm(undownloaded_timestamps):
         url = GET_URL(*timestamp)
         command(["wget", url], DUMP_PAGE_VIEWS_DIR)
 
-        zipped_file = GET_ZIPPED_FILE_NAME(*timestamp)
+        zipped_file = GET_ZIPPED_FILE_NAME(timestamp)
         command(["gzip", "-d", zipped_file], DUMP_PAGE_VIEWS_DIR)
 
 
@@ -88,6 +95,7 @@ def main():
 
     timestamps = get_timestamps_to_process()
     download_page_views(timestamps)
+    return
     page_views = Counter()
 
     for timestamp in tqdm(timestamps):
