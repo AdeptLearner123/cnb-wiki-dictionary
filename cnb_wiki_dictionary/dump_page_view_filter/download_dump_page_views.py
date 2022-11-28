@@ -58,7 +58,7 @@ def download_page_views(timestamps):
         len(undownloaded_timestamps)
     )
 
-    print("\n".join(undownloaded_timestamps))
+    print("\n".join([ timestamp.strftime("%m/%d/%Y, %H:%M:%S") for timestamp in undownloaded_timestamps ]))
 
     return
     for timestamp in tqdm(undownloaded_timestamps):
