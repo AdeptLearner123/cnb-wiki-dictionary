@@ -91,7 +91,7 @@ def command(command, cwd):
 
 def main():
     if not os.path.exists(DUMP_PAGE_VIEWS_DIR):
-        os.mkdir(DUMP_PAGE_VIEWS_DIR)
+        os.makedirs(DUMP_PAGE_VIEWS_DIR)
 
     start_time = time.time()
 
