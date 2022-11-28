@@ -8,7 +8,7 @@ from calendar import monthrange
 from datetime import datetime, timedelta
 
 GET_URL = (
-    lambda year, month, day, hour: f"https://dumps.wikimedia.org/other/pageviews/{year}/{year}-{month:02d}/{GET_FILE_NAME(year, month, day, hour)}.gz"
+    lambda timestamp: f"https://dumps.wikimedia.org/other/pageviews/{timestamp.year}/{timestamp.year}-{timestamp.month:02d}/{GET_FILE_NAME(timestamp)}.gz"
 )
 GET_FILE_NAME = (
     lambda timestamp: f"pageviews-{timestamp.year}{timestamp.month:02d}{timestamp.day:02d}-{timestamp.hour:02d}0000"
@@ -61,7 +61,7 @@ def download_page_views(timestamps):
     print("\n".join([ timestamp.strftime("%m/%d/%Y, %H:%M:%S") for timestamp in undownloaded_timestamps ]))
 
     for timestamp in tqdm(undownloaded_timestamps):
-        url = GET_URL(*timestamp)
+        url = GET_URL(timestamp)
         command(["wget", url], DUMP_PAGE_VIEWS_DIR)
 
         zipped_file = GET_ZIPPED_FILE_NAME(timestamp)
@@ -69,7 +69,7 @@ def download_page_views(timestamps):
 
 
 def parse_page_views(timestamp):
-    file_name = GET_FILE_NAME(*timestamp)
+    file_name = GET_FILE_NAME(timestamp)
 
     with open(os.path.join(DUMP_PAGE_VIEWS_DIR, file_name), "r") as file:
         lines = file.read().splitlines()
