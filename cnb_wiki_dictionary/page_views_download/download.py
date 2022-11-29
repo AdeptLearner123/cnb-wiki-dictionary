@@ -41,6 +41,7 @@ def process_result(key, result):
     monthly_views = [item["views"] for item in json["items"]]
     print("Json", json)
     print("Monthly views", monthly_views)
+    print(sum(monthly_views))
     return sum(monthly_views), True
 
 
