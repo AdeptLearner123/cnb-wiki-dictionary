@@ -8,7 +8,7 @@ import json
 import os.path
 
 GET_URL = (
-    lambda page_title: f"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/{quote_plus(page_title)}/monthly/2021010100/2021123100"
+    lambda page_title: f"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/{quote_plus(page_title)}/monthly/2021110100/2022110100"
 )
 
 
@@ -39,6 +39,8 @@ def process_result(key, result):
 
     json = result.json()
     monthly_views = [item["views"] for item in json["items"]]
+    print("Json", json)
+    print("Monthly views", monthly_views)
     return sum(monthly_views), True
 
 
@@ -57,6 +59,8 @@ def main():
             titles = titles.difference(missing_page_views)
 
     email = parse_args()
+
+    titles = ["Block,_Inc."]
 
     download(
         keys=titles,
