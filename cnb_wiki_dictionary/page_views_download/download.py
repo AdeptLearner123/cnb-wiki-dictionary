@@ -39,9 +39,11 @@ def process_result(key, result):
 
     json = result.json()
     monthly_views = [item["views"] for item in json["items"]]
-    print("Json", json)
-    print("Monthly views", monthly_views)
-    print(sum(monthly_views))
+    
+    if key == "Block,_Inc.":
+        print("Json", json)
+        print("Monthly views", monthly_views)
+        print(sum(monthly_views))
     return sum(monthly_views), True
 
 
@@ -60,8 +62,6 @@ def main():
             titles = titles.difference(missing_page_views)
 
     email = parse_args()
-
-    titles = ["Block,_Inc."]
 
     download(
         keys=titles,
