@@ -12,7 +12,15 @@ nlp = spacy.load("en_core_web_sm")
 def retokenize(doc):
     # Merge things like "Donald Trump's tenure" or "Meniere's disease" or "Halo: Reach"
     matcher = Matcher(nlp.vocab)
-    pattern = [ {"POS": { "IN": [ "NOUN", "PROPN" ] }, "OP": "+"}, {"LOWER": { "IN": [ "'s", ":", "the" ] }, "OP": "*"}, {"POS": { "IN": [ "NOUN", "PROPN" ] }, "OP": "*"} ]
+    pattern = [
+        {"POS": "INTJ", "OP": "*"},
+        {"LOWER": { "IN": ["'", "!"]}, "OP": "*"},
+        {"POS": { "IN": [ "NOUN", "PROPN" ] }, "OP": "+"},
+        {"LOWER": { "IN": [ "'s", ":", "the", "'", "!" ] }, "OP": "*"},
+        {"POS": { "IN": [ "NOUN", "PROPN" ] }, "OP": "*"},
+        {"LOWER": { "IN": ["'", "!"]}, "OP": "*"},
+    ]
+
     matcher.add("Merger", [pattern])
     matches = matcher(doc)
     spans = [doc[start:end] for _, start, end in matches]
@@ -33,13 +41,16 @@ def get_auxilary(doc):
 def get_forms_from_summary(doc):
     retokenize(doc)
 
+    for token in doc:
+        print(token, token.pos_)
+
     auxilary = get_auxilary(doc)
     if auxilary is None:
         return []
     
     word_forms = []
     word_forms += get_children_by_path(auxilary, [
-        PathRule(deps=["nsubj", "nsubjpass"])
+        PathRule(deps=["nsubj", "nsubjpass"], tag="NN")
     ])
     word_forms += get_children_by_path(auxilary, [
         PathRule(deps=["nsubj", "nsubjpass"]),
