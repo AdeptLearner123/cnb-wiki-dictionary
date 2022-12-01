@@ -11,7 +11,7 @@ def get_children_by_dep(token, dep_types):
     return [child for child in token.children if child.dep_ in dep_types]
 
 
-def get_children_by_path(token, path):
+def get_children_by_path(token, path, filter=None):
     matches = []
 
     if len(path) == 0:
@@ -27,6 +27,6 @@ def get_children_by_path(token, path):
         children = [ child for child in children if child.tag_.startswith(path_rule.tag) ]
 
     for child in children:
-        matches += get_children_by_path(child, path[1:])
+        matches += get_children_by_path(child, path[1:], filter)
     
     return matches

@@ -41,6 +41,8 @@ def main():
             "wordForms": get_word_forms(title, doc),
         }
 
+    print("Dictionary size", len(dictionary))
+
     with open(DICTIONARY, "w+") as file:
         file.write(json.dumps(dictionary, indent=4, sort_keys=True, ensure_ascii=False))
 

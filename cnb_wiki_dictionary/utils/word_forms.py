@@ -14,9 +14,9 @@ def retokenize(doc):
     matcher = Matcher(nlp.vocab)
     pattern = [
         {"POS": "INTJ", "OP": "*"},
-        {"LOWER": { "IN": ["'", "!"]}, "OP": "*"},
+        {"LOWER": { "IN": ["'", "!", "the"]}, "OP": "*"},
         {"POS": { "IN": [ "NOUN", "PROPN" ] }, "OP": "+"},
-        {"LOWER": { "IN": [ "'s", ":", "the", "'", "!" ] }, "OP": "*"},
+        {"LOWER": { "IN": [ "'s", ":", "of", "the", "'", "!" ] }, "OP": "*"},
         {"POS": { "IN": [ "NOUN", "PROPN" ] }, "OP": "*"},
         {"LOWER": { "IN": ["'", "!"]}, "OP": "*"},
     ]
@@ -40,9 +40,6 @@ def get_auxilary(doc):
 
 def get_forms_from_summary(doc):
     retokenize(doc)
-
-    for token in doc:
-        print(token, token.pos_)
 
     auxilary = get_auxilary(doc)
     if auxilary is None:
