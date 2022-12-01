@@ -62,7 +62,7 @@ def get_word_forms(title, doc):
     
     for word_form in word_forms.copy():
         for suffix in SUFFIXES:
-            trimmed = word_form.removesuffix(suffix).strip()
+            trimmed = word_form.removesuffix(suffix).strip().strip(",")
             if len(trimmed) > 0 and trimmed != word_form:
                 word_forms.append(trimmed)
     return list(set(word_forms))
