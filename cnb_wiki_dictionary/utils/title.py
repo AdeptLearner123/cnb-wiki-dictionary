@@ -1,9 +1,5 @@
-from .cardword_token_merger import CardwordTokenMerger
-
 IGNORE_TOKENS = ["the", "of"]
 SPLIT_CHARS = ["_", "-", "\u2013", ":"]
-
-cardwords_merger = CardwordTokenMerger()
 
 
 def title_to_text(title):
@@ -30,6 +26,5 @@ def extract_title(title):
 def get_title_tokens(title):
     title = extract_title(title)
     tokens = tokenize(title)
-    tokens = cardwords_merger.merge(tokens)
     tokens = [token for token in tokens if token.lower() not in IGNORE_TOKENS]
     return tokens

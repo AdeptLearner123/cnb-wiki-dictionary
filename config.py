@@ -21,6 +21,5 @@ TITLE_FILTERED = "data/output/title_filtered.txt"
 CLUE_TOKEN_FILTERED = "data/output/clue_token_filtered.json"
 COMPOUND_CLUE_FILTERED = "data/output/compound_clue_filtered.json"
 
-# Final outputs
-CLUE_TOKEN_DICT = "data/output/clue_token_dict.json"
-COMPOUND_DICT = "data/output/compound_dict.json"
+# Final output
+DICTIONARY = "data/output/wiki_dict.json"

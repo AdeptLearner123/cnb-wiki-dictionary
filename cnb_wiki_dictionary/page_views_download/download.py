@@ -1,6 +1,6 @@
 from cnb_wiki_dictionary.download.caches import PageViewsCache
 from cnb_wiki_dictionary.download.api_downloader import download
-from config import CLUE_TOKEN_FILTERED, COMPOUND_CLUE_FILTERED, MISSING_PAGE_VIEWS
+from config import TITLE_FILTERED, MISSING_PAGE_VIEWS
 
 from urllib.parse import quote_plus
 from argparse import ArgumentParser
@@ -48,13 +48,8 @@ def process_result(key, result):
 
 
 def main():
-    titles = set()
-
-    with open(CLUE_TOKEN_FILTERED, "r") as file:
-        titles.update(json.loads(file.read()).keys())
-
-    with open(COMPOUND_CLUE_FILTERED, "r") as file:
-        titles.update(json.loads(file.read()).keys())
+    with open(TITLE_FILTERED, "r") as file:
+        titles = file.read().splitlines()
 
     if os.path.isfile(MISSING_PAGE_VIEWS):
         with open(MISSING_PAGE_VIEWS, "r") as file:

@@ -17,16 +17,14 @@ spacy = "^3.4.3"
 format                          = "tasks:format"
 setup                           = "tasks:setup"
 
-spacy-ner                       = "tools.spacy_ner:main"
+spacy                           = "tools.spacy:main"
 
 download-dump-page-views        = "cnb_wiki_dictionary.dump_page_view_filter.download_dump_page_views:main"
 dump-page-views-filter          = "cnb_wiki_dictionary.dump_page_view_filter.filter:main"
 title-filter                    = "cnb_wiki_dictionary.title_filter.filter:main"
 summaries-download              = "cnb_wiki_dictionary.summaries_download.download:main"
-clue-token-filter               = "cnb_wiki_dictionary.clue_filter.clue_token_filter:main"
-compound-clue-filter            = "cnb_wiki_dictionary.clue_filter.compound_clue_filter:main"
 page-views-download             = "cnb_wiki_dictionary.page_views_download.download:main"
-create-dicts                    = "cnb_wiki_dictionary.dictionary_creator.create_dicts:main"
+create-dict                     = "cnb_wiki_dictionary.dictionary_creator.create_dict:main"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
