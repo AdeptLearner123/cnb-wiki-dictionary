@@ -41,7 +41,6 @@ def main():
         dictionary[title] = {
             "word": title_to_text(title),
             "pos": "noun",
-            "shortDefinition": list(doc.sents)[0].text,
             "definition": summary,
             "knownness": knownness,
             "wordForms": get_word_forms(title, doc),
