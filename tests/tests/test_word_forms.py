@@ -5,6 +5,7 @@ from config import TESTS_DATA
 from cnb_wiki_dictionary.utils.word_forms import get_word_forms
 from cnb_wiki_dictionary.utils.spacy import make_doc
 from cnb_wiki_dictionary.download.caches import SummariesCache
+from cnb_wiki_dictionary.utils.process_summary import process_summary
 
 
 def test_clue_tokens_extractor():
@@ -15,6 +16,7 @@ def test_clue_tokens_extractor():
 
     for title, expected_word_forms in test_data.items():
         summary = summaries_cache.get_cached_value(title)
+        summary = process_summary(summary)
         expected_word_forms = set(expected_word_forms)
         doc = make_doc(summary)
         word_forms = set(get_word_forms(title, doc))

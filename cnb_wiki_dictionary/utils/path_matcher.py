@@ -15,6 +15,8 @@ def get_children_by_path(token, path, filter=None):
     matches = []
 
     if len(path) == 0:
+        if filter is not None and not filter(token):
+            return []
         return [token.text]
 
     path_rule = path[0]

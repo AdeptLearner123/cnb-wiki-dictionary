@@ -1,4 +1,4 @@
-IGNORE_TOKENS = ["the", "of"]
+IGNORE_TOKENS = ["the", "of", "inc.", "f.c."]
 SPLIT_CHARS = ["_", "-", "\u2013", ":"]
 
 
